@@ -1,5 +1,6 @@
 package com.mgp.ddemo.user.controller;
 
+import com.mgp.ddemo.commons.util.RabbitSender;
 import com.mgp.ddemo.commons.util.RedisUtil;
 import com.mgp.ddemo.user.bean.Jiepai;
 import com.mgp.ddemo.user.bean.User;
@@ -30,6 +31,9 @@ public class UserController {
 
     @Autowired(required = false)@Qualifier("jiepaiService")
     private JiepaiService jiepaiService;
+
+    @Autowired
+    private RabbitSender rabbitSender;
 
     @RequestMapping("/getUser")
     public Map<String, Object> getUser(){
@@ -73,6 +77,17 @@ public class UserController {
         List<Jiepai> jpList = jiepaiService.getJiepaiByTitle("街拍：地铁站街拍气质美女");
         System.out.println("tt");
         map.put("data",jpList);
+        return map;
+    }
+
+    @RequestMapping("/getMQData/{rkey}")
+    public Map<String, Object> getMQData(@PathVariable("rkey") String rkey){
+        Map<String, Object> map = new HashMap<String, Object>();
+        //mqProducer.send();
+            //rabbitSender.send00();
+            //rabbitSender.send01();
+            rabbitSender.send03();
+           // rabbitSender.send2();
         return map;
     }
 
