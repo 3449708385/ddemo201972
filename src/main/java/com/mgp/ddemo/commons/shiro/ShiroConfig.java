@@ -1,13 +1,14 @@
-package com.mgp.ddemo.commons.util;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.mgp.ddemo.commons.shiro;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * shiro配置类
  * @author https://blog.csdn.net/qq_36676077/article/details/80622786

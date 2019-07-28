@@ -1,4 +1,4 @@
-package com.mgp.ddemo.commons.util;
+package com.mgp.ddemo.commons.quartz;
 
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;

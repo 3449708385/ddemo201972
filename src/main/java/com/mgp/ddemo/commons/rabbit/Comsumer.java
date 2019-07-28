@@ -1,7 +1,6 @@
-package com.mgp.ddemo.commons.util;
+package com.mgp.ddemo.commons.rabbit;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mgp.ddemo.user.bean.User;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;

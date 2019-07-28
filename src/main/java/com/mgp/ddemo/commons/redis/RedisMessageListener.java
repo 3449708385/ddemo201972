@@ -1,4 +1,4 @@
-package com.mgp.ddemo.commons.util;
+package com.mgp.ddemo.commons.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;

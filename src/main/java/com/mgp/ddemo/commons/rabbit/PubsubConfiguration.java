@@ -1,6 +1,7 @@
-package com.mgp.ddemo.commons.util;
+package com.mgp.ddemo.commons.rabbit;
 
 import com.mgp.ddemo.DdemoApplication;
+import com.mgp.ddemo.commons.redis.RedisMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +9,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 @Configuration
 //value 是启动类

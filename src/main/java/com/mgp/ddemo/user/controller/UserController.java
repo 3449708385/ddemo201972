@@ -1,7 +1,9 @@
 package com.mgp.ddemo.user.controller;
 
-import com.mgp.ddemo.commons.util.RabbitSender;
-import com.mgp.ddemo.commons.util.RedisUtil;
+import com.mgp.ddemo.commons.rabbit.RabbitSender;
+import com.mgp.ddemo.commons.redis.RedisUtil;
+import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
+import com.mgp.ddemo.commons.token.JwtUtils;
 import com.mgp.ddemo.user.bean.Jiepai;
 import com.mgp.ddemo.user.bean.User;
 import com.mgp.ddemo.user.service.JiepaiService;
@@ -9,10 +11,10 @@ import com.mgp.ddemo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.*;
 
 
@@ -88,6 +90,17 @@ public class UserController {
             //rabbitSender.send01();
             rabbitSender.send03();
            // rabbitSender.send2();
+        return map;
+    }
+
+    @GetMapping("/setUserInfo")
+    public Map<String, Object> setUserInfo(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        ThreadUserInfo userInfo = new ThreadUserInfo();
+        userInfo.setToken("12345");
+        userInfo.setUserId(1L);
+        String token = JwtUtils.encode(userInfo, 30L * 24L * 3600L * 1000L);
+        redisUtil.set(token,userInfo);
         return map;
     }
 
