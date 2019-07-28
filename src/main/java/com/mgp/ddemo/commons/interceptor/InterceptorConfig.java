@@ -45,22 +45,22 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**","/**/**")
-                .excludePathPatterns("/login","/static");
+                .excludePathPatterns("/login","/filedir/**","/resources/**","/static/**","/public/**");
         super.addInterceptors(registry);
     }
 
     /**
-     * 配置静态访问资源
+     * 配置静态访问资源:http://127.0.0.1:8012/ddemo/static/1.jpg,
+     * http://127.0.0.1:8012/ddemo/filedir/1.jpg指向外部路径也可以访问，但如果不是浏览器可以解析的，需要做处理，比如txt文件下载
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/resources/")
-                .addResourceLocations("classpath:/static/")
-                .addResourceLocations("classpath:/public/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/public/**").addResourceLocations("classpath:/public/");
         //访问外部目录
-        //registry.addResourceHandler("/**").addResourceLocations("file:E:/static/");
+        registry.addResourceHandler("/filedir/**").addResourceLocations("file:c:/logs/");
         super.addResourceHandlers(registry);
     }
 
