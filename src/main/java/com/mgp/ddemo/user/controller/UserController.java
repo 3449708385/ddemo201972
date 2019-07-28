@@ -1,7 +1,9 @@
 package com.mgp.ddemo.user.controller;
 
+import com.mgp.ddemo.commons.interceptor.NeedLogin;
 import com.mgp.ddemo.commons.rabbit.RabbitSender;
 import com.mgp.ddemo.commons.redis.RedisUtil;
+import com.mgp.ddemo.commons.threadbind.ThreadLocalUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
 import com.mgp.ddemo.commons.token.JwtUtils;
 import com.mgp.ddemo.user.bean.Jiepai;
@@ -38,6 +40,7 @@ public class UserController {
     private RabbitSender rabbitSender;
 
     @RequestMapping("/getUser")
+    @NeedLogin
     public Map<String, Object> getUser(){
         Map<String, Object> map = new HashMap<String, Object>();
         List<User> userList = userService.queryUserList();
@@ -45,6 +48,7 @@ public class UserController {
         return map;
     }
 
+    @NeedLogin
     @RequestMapping(value="/getUser/{username}", produces="application/json")
     public Map<String, Object> getUserByName(@PathVariable("username") String username){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -53,6 +57,7 @@ public class UserController {
         return map;
     }
 
+    @NeedLogin
     @RequestMapping("/getData/{rkey}")
     public Map<String, Object> getData(@PathVariable("rkey") String rkey){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -65,6 +70,7 @@ public class UserController {
         return map;
     }
 
+    @NeedLogin
     @RequestMapping("/getMongoData/{rkey}")
     public Map<String, Object> getMongoData(@PathVariable("rkey") String rkey){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -82,6 +88,7 @@ public class UserController {
         return map;
     }
 
+    @NeedLogin
     @RequestMapping("/getMQData/{rkey}")
     public Map<String, Object> getMQData(@PathVariable("rkey") String rkey){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -97,10 +104,20 @@ public class UserController {
     public Map<String, Object> setUserInfo(){
         Map<String, Object> map = new HashMap<String, Object>();
         ThreadUserInfo userInfo = new ThreadUserInfo();
-        userInfo.setToken("12345");
-        userInfo.setUserId(1L);
-        String token = JwtUtils.encode(userInfo, 30L * 24L * 3600L * 1000L);
+        userInfo.setUserId(2L);
+        userInfo.setToken("token");
+        String token = JwtUtils.encode(userInfo, 5L * 3600L * 1000L);
         redisUtil.set(token,userInfo);
+        map.put("token",token);
+        return map;
+    }
+
+    @NeedLogin
+    @GetMapping("/getUserInfo")
+    public Map<String, Object> getUserInfo(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        ThreadUserInfo userInfo = ThreadLocalUtil.getThreadLocalUserInfo();
+        map.put("token", userInfo);
         return map;
     }
 

@@ -1,5 +1,6 @@
 package com.mgp.ddemo.commons.interceptor;
 import com.alibaba.fastjson.JSONObject;
+import com.mgp.ddemo.commons.emun.RequestStatus;
 import com.mgp.ddemo.commons.redis.RedisUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadLocalUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 @Configuration
 public class TokenInterceptor extends HandlerInterceptorAdapter {
@@ -41,6 +43,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             if(needLogin != null){
                //获取token，将token数据注入user线程
                 String token = request.getHeader("token");
+                System.out.println("token : " + token);
                 if(StringUtils.isNotBlank(token)){
                     //redis实现token的方式，我没写完
                     /*ThreadUserInfo threadUserInfo = JSONObject.parseObject(redisUtil.get(token).toString(),ThreadUserInfo.class);
@@ -49,9 +52,21 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     ThreadUserInfo threadUserInfo = JwtUtils.decode(token,ThreadUserInfo.class);
                     ThreadLocalUtil.setThreadLocalUserInfo(threadUserInfo);
                     return true;
+                }else{
+                    //抛异常，或直接返回
+                    response.setStatus(RequestStatus.LOGIN_TOKEN.getCode());
+                    response.setCharacterEncoding("UTF-8");
+                    response.setContentType("application/json; charset=utf-8");
+                    JSONObject res = new JSONObject();
+                    res.put("status",RequestStatus.LOGIN_TOKEN.getCode());
+                    res.put("msg",RequestStatus.LOGIN_TOKEN.getMsg());
+                    PrintWriter out = null ;
+                    out = response.getWriter();
+                    out.write(res.toString());
+                    out.flush();
+                    out.close();
+                    return false;
                 }
-
-               return false;
             }else{
                 //返回true继续往下走
                 return true;
