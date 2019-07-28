@@ -1,5 +1,6 @@
 package com.mgp.ddemo.user.controller;
 
+import com.mgp.ddemo.commons.exceptionhandler.GlobalException;
 import com.mgp.ddemo.commons.interceptor.NeedLogin;
 import com.mgp.ddemo.commons.rabbit.RabbitSender;
 import com.mgp.ddemo.commons.redis.RedisUtil;
@@ -40,12 +41,17 @@ public class UserController {
     private RabbitSender rabbitSender;
 
     @RequestMapping("/getUser")
-    @NeedLogin
     public Map<String, Object> getUser(){
         Map<String, Object> map = new HashMap<String, Object>();
         List<User> userList = userService.queryUserList();
         map.put("abc",userList);
         return map;
+    }
+
+    @RequestMapping("/getExceptionInfo")
+    public Map<String, Object> getExceptionInfo(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        throw new GlobalException(505,"my exception");
     }
 
     @NeedLogin

@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryUserList() {
+        int i = 10/0;
         return userMapper.queryByAll();
     }
 
