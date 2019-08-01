@@ -1,5 +1,7 @@
 package com.mgp.ddemo.user.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mgp.ddemo.commons.exceptionhandler.GlobalException;
 import com.mgp.ddemo.commons.interceptor.NeedLogin;
 import com.mgp.ddemo.commons.rabbit.RabbitSender;
@@ -7,6 +9,7 @@ import com.mgp.ddemo.commons.redis.RedisUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadLocalUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
 import com.mgp.ddemo.commons.token.JwtUtils;
+import com.mgp.ddemo.commons.util.MyPageHelper;
 import com.mgp.ddemo.user.bean.Jiepai;
 import com.mgp.ddemo.user.bean.User;
 import com.mgp.ddemo.user.service.JiepaiService;
@@ -14,10 +17,9 @@ import com.mgp.ddemo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 
@@ -52,6 +54,27 @@ public class UserController {
     public Map<String, Object> getExceptionInfo(){
         Map<String, Object> map = new HashMap<String, Object>();
         throw new GlobalException(505,"my exception");
+    }
+
+    @GetMapping("/getAllUser")
+    public Map<String, Object> getAllUser(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        Map<String, Object> map = new HashMap<String, Object>();
+        PageHelper.startPage(pageNum,1);
+        //分页插件total只会以第一个查询为主，后续查询会导致无法获取总数，需要用PageInfo承接
+        List<User> list = userService.queryUserList();
+        PageInfo<User> pageInfo = new PageInfo<User>(list);
+        map.put("pageInfo",pageInfo);
+        return map;
+    }
+
+    @GetMapping("/getAllUser2")
+    public Map<String, Object> getAllUser2(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        Map<String, Object> map = new HashMap<String, Object>();
+        //分页插件total只会以第一个查询为主，后续查询会导致无法获取总数，需要用PageInfo承接
+        List<User> list = userService.queryUserList();
+        MyPageHelper<User> myPageHelper = new MyPageHelper<>(list, pageNum, 1);
+        map.put("pageInfo",myPageHelper);
+        return map;
     }
 
     @NeedLogin

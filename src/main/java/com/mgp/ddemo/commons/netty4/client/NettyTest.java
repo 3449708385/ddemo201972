@@ -14,7 +14,7 @@ public class NettyTest {
             OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream();
             PrintWriter printWriter=new PrintWriter(outputStream);
-            for(int i=0;i<1000;i++){
+            for(int i=0;i<100;i++){
                 printWriter.write("{\"id\":"+ i +",\"name\":\"testing\",\"age\":12,\"state\":12}$E$&");
                 printWriter.flush();
 
