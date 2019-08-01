@@ -45,7 +45,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**","/**/**")
-                .excludePathPatterns("/login","/filedir/**","/resources/**","/static/**","/public/**");
+                .excludePathPatterns("/login","/filedir/**","/resources/**","/static/**","/public/**","/websocket/**");
         super.addInterceptors(registry);
     }
 

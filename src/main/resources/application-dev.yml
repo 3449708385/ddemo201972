@@ -14,9 +14,11 @@ spring:
   http:
     encoding:
       #设置项目编码为utf-8
-      charset: utf-8
+      charset: UTF-8
       force: true
       enabled: true
+  messages:
+    encoding: UTF-8
 
 #数据库配置
   datasource:
@@ -141,4 +143,10 @@ management:
 #  resources:
 #    static-locations: 这里设置要指向的路径，多个使用英文逗号隔开
 
+# 设置编码格式
+banner:
+  charset: UTF-8
+#netty
+netty:
+  port: 8888
 
