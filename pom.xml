@@ -160,7 +160,7 @@
 			    <configuration>
 				  <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
 				  <verbose>true</verbose>
-				  <overwrite>false</overwrite>
+				  <overwrite>false</overwrite><!-- 不覆盖原文件 -->
 			    </configuration>
 				<executions>
 					<execution>

@@ -5,6 +5,10 @@
 
 <!-- 运行方式，在idea：maven plugins mybatis-generator里面运行
                或者看：https://www.cnblogs.com/songjn/p/8547794.html
+      说明：自动生成，mapper.xml文件不覆盖，但会追加到文件里面，建议生成后注释掉生成的表
+            其他文件也不覆盖，但会根据版本号生成最新的文件，
+            clean package与clean install没有影响
+            一般来说生成后不会再生成，需要在生成的时候选择覆盖，但保险起见，我默认不覆盖
  -->
 
 <generatorConfiguration>
@@ -71,11 +75,11 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-
-        <table tableName="sys_user" domainObjectName="User"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
-        </table>
+        <!-- false代表不生成Example类 -->
+       <!-- <table tableName="sys_user" domainObjectName="User"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">&lt;!&ndash;在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法&ndash;&gt;
+        </table>-->
     </context>
 </generatorConfiguration>
