@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
+<!-- 运行方式，在idea：maven plugins mybatis-generator里面运行
+               或者看：https://www.cnblogs.com/songjn/p/8547794.html
+ -->
+
 <generatorConfiguration>
     <!--导入属性配置-->
     <properties resource="generator.properties"></properties>
@@ -53,7 +57,7 @@
 
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
         <sqlMapGenerator targetPackage="mapper"
-                         targetProject="src/main/resources/mapper">
+                         targetProject="src/main/resources/mybatis">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 

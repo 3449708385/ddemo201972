@@ -4,16 +4,15 @@ import com.mgp.ddemo.user.bean.User;
 import com.mgp.ddemo.user.bean.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository("userMapper")
 public interface UserMapper {
 
-    @Select("select * from sys_user")
+    // @Select("select * from sys_user"),舍弃这种方式
     public List<User> queryByAll();
 
-    @Select("select * from sys_user where username=#{username}")
+    // @Select("select * from sys_user where username=#{username}"),舍弃这种方式
     public List<User> queryByUserName(String username);
 
     long countByExample(UserExample example);

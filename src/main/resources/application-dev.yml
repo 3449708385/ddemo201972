@@ -46,6 +46,11 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
   # 配置监控统计拦截的filters
     filters: stat
+  # schema.sql中一般存放的是建表语句,看情况使用
+    #schema: classpath:schema.sql
+  # data.sql中一般存放的是需要插入更新等sql语句,看情况使用
+    #data: classpath:data.sql
+
 #jpa配置
   #jpa:
    # database: mysql
@@ -160,6 +165,8 @@ pagehelper:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
 logging:
   level:
      com.mgp.ddemo.*.mapper : debug
