@@ -8,47 +8,48 @@ import java.util.*;
  * 多线程共享
  */
 public class ThreadLocalUtil {
-    private static final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal() {
+    private static final ThreadLocal<Map<String, Object>> THREAD_LOCAL = new ThreadLocal() {
+        @Override
         protected Map<String, Object> initialValue() {
             return new HashMap(4);
         }
     };
 
-    private static final ThreadLocal<ThreadUserInfo> threadLocalUserInfo = new ThreadLocal<ThreadUserInfo>();
+    private static final ThreadLocal<ThreadUserInfo> THREAD_USER_INFO_THREAD_LOCAL = new ThreadLocal<ThreadUserInfo>();
 
     public static void setThreadLocalUserInfo(ThreadUserInfo threadUserInfo){
-        threadLocalUserInfo.set(threadUserInfo);
+        THREAD_USER_INFO_THREAD_LOCAL.set(threadUserInfo);
     }
 
     public static ThreadUserInfo getThreadLocalUserInfo(){
-        return threadLocalUserInfo.get();
+        return THREAD_USER_INFO_THREAD_LOCAL.get();
     }
 
     public static Map<String, Object> getThreadLocal(){
-        return threadLocal.get();
+        return THREAD_LOCAL.get();
     }
     public static <T> T get(String key) {
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         return (T)map.get(key);
     }
 
     public static <T> T get(String key,T defaultValue) {
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         return (T)map.get(key) == null ? defaultValue : (T)map.get(key);
     }
 
     public static void set(String key, Object value) {
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         map.put(key, value);
     }
 
     public static void set(Map<String, Object> keyValueMap) {
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         map.putAll(keyValueMap);
     }
 
     public static void remove() {
-        threadLocal.remove();
+        THREAD_LOCAL.remove();
     }
 
     public static <T> Map<String,T> fetchVarsByPrefix(String prefix) {
@@ -56,7 +57,7 @@ public class ThreadLocalUtil {
         if( prefix == null ){
             return vars;
         }
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         Set<Map.Entry> set = map.entrySet();
 
         for( Map.Entry entry : set ){
@@ -71,7 +72,7 @@ public class ThreadLocalUtil {
     }
 
     public static <T> T remove(String key) {
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         return (T)map.remove(key);
     }
 
@@ -83,7 +84,7 @@ public class ThreadLocalUtil {
         if( prefix == null ){
             return;
         }
-        Map map = (Map)threadLocal.get();
+        Map map = (Map)THREAD_LOCAL.get();
         Set<Map.Entry> set = map.entrySet();
         List<String> removeKeys = new ArrayList<>();
 

@@ -20,9 +20,9 @@ import java.util.List;
  * @author zhengql
  * @date 2018/8/9 11:01
  */
-public abstract class MongoDbBaseDao<T> {
+public abstract class AbstractMongoDbBaseDao<T> {
 
-    protected Logger logger = LoggerFactory.getLogger(MongoDbBaseDao.class);
+    protected Logger logger = LoggerFactory.getLogger(AbstractMongoDbBaseDao.class);
 
     /**
      * 反射获取泛型类型

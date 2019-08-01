@@ -119,7 +119,7 @@ public class UserController {
 
     @NeedLogin
     @RequestMapping("/getMQData/{rkey}")
-    public Map<String, Object> getMQData(@PathVariable("rkey") String rkey){
+    public Map<String, Object> getMqData(@PathVariable("rkey") String rkey){
         Map<String, Object> map = new HashMap<String, Object>();
         //mqProducer.send();
             //rabbitSender.send00();

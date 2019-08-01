@@ -140,10 +140,10 @@
 
 	<build>
 		<plugins>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			</plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -172,7 +172,7 @@
 						</goals>
 					</execution>
 				</executions>
-                  <dependencies>
+				<dependencies>
                       <dependency>
                           <groupId>log4j</groupId>
                           <artifactId>log4j</artifactId>
@@ -188,8 +188,8 @@
                           <artifactId>mysql-connector-java</artifactId>
                           <version>5.1.46</version>
                       </dependency>
-                  </dependencies>
-              </plugin>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

@@ -10,16 +10,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TopRabbitConfigFinal {
 
-    final static String message01 = "topic_test01";
-    final static String message02 = "topic_test02";
+    final static String MESSAGE_ONE = "topic_test01";
+    final static String MESSAGE_TWO = "topic_test02";
 
     @Bean
     public Queue topicTest01(){
-        return new Queue(TopRabbitConfigFinal.message01);
+        return new Queue(TopRabbitConfigFinal.MESSAGE_ONE);
     }
     @Bean
     public Queue topicTest02(){
-        return new Queue(TopRabbitConfigFinal.message02);
+        return new Queue(TopRabbitConfigFinal.MESSAGE_TWO);
     }
 
     @Bean
