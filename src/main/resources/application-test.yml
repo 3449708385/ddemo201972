@@ -148,4 +148,20 @@ banner:
 #netty
 netty:
   port: 8888
+#分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+#sql logs
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+logging:
+  level:
+     com.mgp.ddemo.*.mapper : debug
 
