@@ -3,16 +3,7 @@ package com.mgp.ddemo.commons.interceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-
-import java.nio.charset.Charset;
-import java.util.List;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * @author:mgp，
@@ -48,6 +39,21 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/login","/filedir/**","/resources/**","/static/**","/public/**","/websocket/**");
         super.addInterceptors(registry);
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        //设置允许跨域的路径
+        registry.addMapping("/**")
+                //设置允许跨域请求的域名
+                .allowedOrigins("*")
+                //是否允许证书 不再默认开启
+                .allowCredentials(true)
+                //设置允许的方法
+                .allowedMethods("*")
+                //跨域允许时间
+                .maxAge(3600);
+    }
+
 
     /**
      * 配置静态访问资源:http://127.0.0.1:8012/ddemo/static/1.jpg,
