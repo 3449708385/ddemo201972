@@ -2,18 +2,31 @@ package com.mgp.ddemo.user.bean;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Document("jiepai")
 public class Jiepai implements Serializable {//对应数据库collection名字
     @Id
     private ObjectId id;
+
+    @Field("title")
     private String title;
+
+    @Field("iconUrl")
     private String iconUrl;
+
+    @Field("createTime")
     private Date createTime;
+
+    @Field("updateTime")
     private Date updateTime;
+
+    @Field("iconList")
     private List<String> iconList;
 
     public ObjectId getId() {

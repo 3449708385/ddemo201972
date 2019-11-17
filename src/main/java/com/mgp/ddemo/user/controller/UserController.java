@@ -17,10 +17,12 @@ import com.mgp.ddemo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/user")
@@ -148,6 +150,13 @@ public class UserController {
         ThreadUserInfo userInfo = ThreadLocalUtil.getThreadLocalUserInfo();
         map.put("token", userInfo);
         return map;
+    }
+
+    @GetMapping("/mongo/operate")
+    public void mongoOperate(){
+
+       this.jiepaiService.mongoOperate();
+
     }
 
 }

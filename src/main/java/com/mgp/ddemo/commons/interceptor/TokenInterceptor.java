@@ -39,8 +39,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         if(handler instanceof HandlerMethod){
             HandlerMethod hm = (HandlerMethod)handler;
             NeedLogin needLogin =  hm.getMethodAnnotation(NeedLogin.class);
-            System.out.println("needLogin : " + needLogin);
             if(needLogin != null){
+                System.out.println("needLogin : " + needLogin);
                //获取token，将token数据注入user线程
                 String token = request.getHeader("token");
                 System.out.println("token : " + token);
@@ -68,11 +68,12 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     return false;
                 }
             }else{
+
+                System.out.println("pass");
                 //返回true继续往下走
                 return true;
             }
-        }
-        else{
+        }else{
             return false;
         }
     }

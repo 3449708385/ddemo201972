@@ -196,6 +196,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.mgp.ddemo.DdemoApplication</mainClass>
+					<!--fork:如果没有该项配置,整个devtools不会起作用-->
+					<fork>true</fork>
 				</configuration>
 				<executions>
 					<execution>

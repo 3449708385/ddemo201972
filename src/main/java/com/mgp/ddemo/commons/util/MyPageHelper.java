@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ZSCDumin
+ * @author mgp
  * @version 1.0
  * @description: 自定义分页工具类：传递参数只需要(要分页的数组,当前页,每页大小)
  * @date 2018/12/13 21:10

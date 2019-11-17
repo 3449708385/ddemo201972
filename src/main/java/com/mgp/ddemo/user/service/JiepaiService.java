@@ -14,4 +14,7 @@ public interface JiepaiService {
     public String updateJiepai(Jiepai jp);
     public String deleteJiepai(Jiepai jp);
     public String deleteJiepaiById(ObjectId id);
+
+    //mongo测试
+    void mongoOperate();
 }
