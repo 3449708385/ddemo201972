@@ -16,6 +16,7 @@ import com.mgp.ddemo.user.service.JiepaiService;
 import com.mgp.ddemo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,9 @@ public class UserController {
 
     @Autowired
     private RabbitSender rabbitSender;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @RequestMapping("/getUser")
     public Map<String, Object> getUser(){
@@ -156,6 +160,215 @@ public class UserController {
     public void mongoOperate(){
 
        this.jiepaiService.mongoOperate();
+
+    }
+
+
+    @GetMapping("/redisOperate")
+    public void redisOperate() {
+
+        //hash相当于java的map，也可以直接插入map
+        /*this.redisTemplate.opsForHash().put("hashkeyTest", "key1", "val11");
+        this.redisTemplate.opsForHash().put("hashkeyTest", "key2", "val21");*/
+
+        //hash 模糊匹配key值
+        //scan
+        //获取所以匹配条件的Hash键中key的值。我查过一些资料，大部分写的是无法模糊匹配，
+        //我自己尝试了一下，其实是可以的。如下，使用scan模糊匹配hash键的key中，带SCAN的key。
+
+
+        //直接chu存入map
+       /* Map<String, String> map = new HashMap<String, String>();
+        map.put("key3","val3");
+        map.put("key4","val4");
+        this.redisTemplate.opsForHash().putAll("hashkeyTest", map);*/
+
+        //得到单个map的值
+        //Object obj = this.redisUtil.hget("hashkeyTest", "key1");
+
+        //得到所有map的值
+        //System.out.println(this.redisUtil.hmget("hashkeyTest"));
+
+        //批量或单个删除map key
+        //this.redisUtil.hdel("hashkeyTest", "key1", "key2");
+        //this.redisUtil.hdel("hashkeyTest", "key1");
+
+        //存在自加，不存在默认为加上要自加的值：11
+        //this.redisUtil.hincr("hashkeyTest", "key7", 11);
+
+        //存在自加，不存在默认为要减去的值：11
+        // this.redisUtil.hdecr("hashkeyTest", "key7", 11);
+
+        //set
+
+        //list
+        //当key存在更新，不存在无处理
+        //leftPushIfPresent
+
+        //list才有，用于截取list数组 void
+        //this.redisTemplate.opsForList().trim();
+
+        //移除最左边的一个元素
+        //this.redisTemplate.opsForList().leftPop();
+
+        //可以用range取所有元素，不可以用这个取所有元素
+       /* this.redisTemplate.opsForList().rightPush("mgp",1);
+        this.redisTemplate.opsForList().rightPush("mgp",2);
+        this.redisTemplate.opsForList().rightPush("mgp",3);
+
+        List<Object> list = this.redisTemplate.opsForList().range("mgp",0, -1);
+
+        System.out.println(this.redisTemplate.opsForList().getOperations().boundListOps("mgp"));*/
+
+        /*V leftPop(K key, long timeout, TimeUnit unit);
+        移出并获取列表的第一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。*/
+
+        /*V rightPop(K key, long timeout, TimeUnit unit);
+        移出并获取列表的最后一个元素， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。*/
+
+       /* V rightPopAndLeftPush(K sourceKey, K destinationKey);
+        用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回。*/
+
+        /*V rightPopAndLeftPush(K sourceKey, K destinationKey, long timeout, TimeUnit unit);
+        用于移除列表的最后一个元素，并将该元素添加到另一个列表并返回，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。*/
+
+
+        //String
+        //不存在插入 ，存在不插入
+        //this.redisTemplate.opsForValue().setIfAbsent();
+
+
+        //multiSetIfAbsent 批量存在修改，不存在就不添加，并返回false
+       /* Map<String,String> maps = new HashMap<String, String>();
+        maps.put("multi11","multi11");
+        maps.put("multi22","multi22");
+        maps.put("multi33","multi33");
+        Map<String,String> maps2 = new HashMap<String, String>();
+        maps2.put("multi11","multi1");
+        maps2.put("multi22","multi2");
+        maps2.put("multi33","multi3");
+        maps2.put("multi44","multi4");
+        //true
+        System.out.println(this.redisTemplate.opsForValue().multiSetIfAbsent(maps));
+        //false
+        System.out.println(this.redisTemplate.opsForValue().multiSetIfAbsent(maps2));*/
+
+
+        //getAndSet V getAndSet(K key, V value);  设置键的字符串值并返回其旧值
+
+
+        //multiGet List<V> multiGet(Collection<K> keys); 为多个键分别取出它们的值
+        //multiSet  string 用map批量设置
+       /* Map<String,String> maps = new HashMap<String, String>();
+        maps.put("multi1","multi1");
+        maps.put("multi2","multi2");
+        maps.put("multi3","multi3");
+        template.opsForValue().multiSet(maps);
+        List<String> keys = new ArrayList<String>();
+        keys.add("multi1");
+        keys.add("multi2");
+        keys.add("multi3");
+        System.out.println(template.opsForValue().multiGet(keys));*/
+
+
+        /*increment Long increment(K key, long delta);  支持整数
+        使用：template.opsForValue().increment("increlong",1);
+        System.out.println("***************"+template.opsForValue().get("increlong"));
+        increment Double increment(K key, double delta);  也支持浮点数
+        使用：template.opsForValue().increment("increlong",1.2);
+        System.out.println("***************"+template.opsForValue().get("increlong"));*/
+
+
+      /*  append Integer append(K key, String value);
+        如果key已经存在并且是一个字符串，则该命令将该值追加到字符串的末尾。如果键不存在，则它被创建并设置为空字符串，因此APPEND在这种特殊情况下将类似于SET。
+        使用：template.opsForValue().append("appendTest","Hello");
+        System.out.println(template.opsForValue().get("appendTest"));
+        template.opsForValue().append("appendTest","world");
+        System.out.println(template.opsForValue().get("appendTest"));
+        结果：Hello
+                Helloworld*/
+
+
+        /*get String get(K key, long start, long end);
+        截取key所对应的value字符串
+        使用：appendTest对应的value为Helloworld
+        System.out.println("*********"+template.opsForValue().get("appendTest",0,5));
+        结果：*********Hellow
+        使用：System.out.println("*********"+template.opsForValue().get("appendTest",0,-1));
+        结果：*********Helloworld
+        使用：System.out.println("*********"+template.opsForValue().get("appendTest",-3,-1));
+        结果：*********rld*/
+
+
+        /*setBit Boolean setBit(K key, long offset, boolean value);
+        对 key 所储存的字符串值，设置或清除指定偏移量上的位(bit)
+        key键对应的值value对应的ascii码,在offset的位置(从左向右数)变为value
+        使用：template.opsForValue().set("bitTest","a");
+        // 'a' 的ASCII码是 97。转换为二进制是：01100001
+        // 'b' 的ASCII码是 98  转换为二进制是：01100010
+        // 'c' 的ASCII码是 99  转换为二进制是：01100011
+        //因为二进制只有0和1，在setbit中true为1，false为0，因此我要变为'b'的话第六位设置为1，第七位设置为0
+        template.opsForValue().setBit("bitTest",6, true);
+        template.opsForValue().setBit("bitTest",7, false);
+        System.out.println(template.opsForValue().get("bitTest"));
+        结果：b*/
+
+        /*getBit Boolean getBit(K key, long offset);
+        获取键对应值的ascii码的在offset处位值
+        使用：System.out.println(template.opsForValue().getBit("bitTest",7));
+        结果：false*/
+
+
+        //通用删除
+        //this.redisTemplate.delete("mgp");
+
+        //delete hash专用
+
+        //remove  list set专用
+
+        // set  differenceAndStore 获取 key 和 集合  collections 中的 key 集合的差集 / 将 key 和 集合  collections 中的 key 集合的差集 添加到  newkey 集合中
+        // set  difference 获取两个集合的差集
+        // set  distinctRandomMembers  随机取N次key为"WETRANSN:SYSLAN"，组成一个set集合，不可以重复取出
+
+        // set  union  返回 key 和 othere 的并集
+        // set  unionAndStore  将 key 与 otherKey 的并集,保存到 destKey 中
+
+
+        // zset  incrementScore  对指定的 zset 的 value 值 , socre 属性做增减操作
+
+        // zset  rank  获取 key 中指定 value 的排名(从0开始,从小到大排序)
+        // zset  reverseRank  获取 key 中指定 value 的排名(从0开始,从大到小排序)
+
+        // set zset  intersectAndStore  key 和 otherKey 两个集合的交集,保存在 destKey 集合中
+
+        // zset Long zCard(K key);  获取有序集合的成员数, https://www.cnblogs.com/shamo89/p/8622152.html
+
+        /*Cursor<TypedTuple<V>> scan(K key, ScanOptions options);  可用于遍历或模糊查询hash
+        遍历zset
+        使用： Cursor<ZSetOperations.TypedTuple<Object>> cursor = template.opsForZSet().scan("zzset1", ScanOptions.NONE);
+        while (cursor.hasNext()){
+            ZSetOperations.TypedTuple<Object> item = cursor.next();
+            System.out.println(item.getValue() + ":" + item.getScore());
+        }
+        结果：zset-1:1.0
+        zset-2:2.0
+        zset-3:3.0
+        zset-4:6.0*/
+
+        //expireAt 在指定时间点失效
+
+
+        //rank:zset value自然排序的索引
+        /*this.redisTemplate.opsForZSet().add("mgpzset", 1, 1);
+        this.redisTemplate.opsForZSet().add("mgpzset", 2, 2);
+        this.redisTemplate.opsForZSet().add("mgpzset", 3, 3);
+        this.redisTemplate.opsForZSet().add("mgpzset", 4, 4);
+        this.redisTemplate.opsForZSet().add("mgpzset", 1, 5);
+        System.out.println(this.redisTemplate.opsForZSet().range("mgpzset",0,-1)); // [2, 3, 4, 1]
+        System.out.println(this.redisTemplate.opsForZSet().rank("mgpzset", 2));  // 0*/
+
+
+        //this.redisTemplate.opsForHash().keys();
 
     }
 

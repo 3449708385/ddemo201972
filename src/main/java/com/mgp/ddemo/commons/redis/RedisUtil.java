@@ -299,7 +299,7 @@ public final class RedisUtil {
         }
     }
         /**
-         * 根据value从一个set中查询,是否存在
+         * 根据key value从一个set中查询,是否存在
          * @param key 键
          * @param value 值
          * @return true 存在 false不存在
@@ -432,7 +432,6 @@ public final class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
      * @return
      */
     public boolean lSet(String key, Object value) {
@@ -467,11 +466,10 @@ public final class RedisUtil {
     }
 
     /**
-     * 将list放入缓存
+     * 将list放入redis
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {
