@@ -12,22 +12,22 @@ public class FanoutRabbitConfig {
 
     @Bean
     public Queue AMessage() {
-        return new Queue("fanout.A");
+        return new Queue(RabbitConstant.FANOUT_A);
     }
 
     @Bean
     public Queue BMessage() {
-        return new Queue("fanout.B");
+        return new Queue(RabbitConstant.FANOUT_B);
     }
 
     @Bean
     public Queue CMessage() {
-        return new Queue("fanout.C");
+        return new Queue(RabbitConstant.FANOUT_C);
     }
 
     @Bean
     FanoutExchange fanoutExchange() {
-        return new FanoutExchange("fanoutExchange");
+        return new FanoutExchange(RabbitConstant.FANOUT_EXCHANGE);
     }
 
     @Bean

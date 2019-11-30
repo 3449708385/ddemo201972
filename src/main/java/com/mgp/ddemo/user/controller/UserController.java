@@ -123,14 +123,14 @@ public class UserController {
         return map;
     }
 
-    @NeedLogin
-    @RequestMapping("/getMQData/{rkey}")
-    public Map<String, Object> getMqData(@PathVariable("rkey") String rkey){
+   // @NeedLogin
+    @RequestMapping("/sendRibbitMQ")
+    public Map<String, Object> sendRibbitMQ(){
         Map<String, Object> map = new HashMap<String, Object>();
         //mqProducer.send();
-            //rabbitSender.send00();
+            rabbitSender.send01();
             //rabbitSender.send01();
-            rabbitSender.send03();
+           // rabbitSender.send03();
            // rabbitSender.send2();
         return map;
     }
