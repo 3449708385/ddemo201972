@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.mgp.ddemo.commons.exceptionhandler.GlobalException;
 import com.mgp.ddemo.commons.interceptor.NeedLogin;
 import com.mgp.ddemo.commons.rabbit.RabbitSender;
+import com.mgp.ddemo.commons.rabbit.TranRabbitSender;
 import com.mgp.ddemo.commons.redis.RedisUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadLocalUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
@@ -44,6 +45,9 @@ public class UserController {
 
     @Autowired
     private RabbitSender rabbitSender;
+
+    @Autowired
+    private TranRabbitSender tranRabbitSender;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -128,10 +132,13 @@ public class UserController {
     public Map<String, Object> sendRibbitMQ(){
         Map<String, Object> map = new HashMap<String, Object>();
         //mqProducer.send();
-            rabbitSender.send01();
-            //rabbitSender.send01();
-           // rabbitSender.send03();
-           // rabbitSender.send2();
+        //rabbitSender.send03();
+        //rabbitSender.send01();
+         // rabbitSender.send03();
+         // rabbitSender.send2();
+        //new 对象，对象里面包含的对象不能用spring注入，不然null
+        //new TranRabbitSender().sendIngateQueue("test_pay");
+        tranRabbitSender.sendIngateQueue("test_pay");
         return map;
     }
 

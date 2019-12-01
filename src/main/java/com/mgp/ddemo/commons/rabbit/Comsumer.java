@@ -17,14 +17,17 @@ public class Comsumer {
     @RabbitListener(queues = RabbitConstant.QUEUE_ONE)
     public void process(Message message, Channel channel) throws IOException {
         // 采用手动应答模式, 手动确认应答更为安全稳定
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true); // requeue为是否重新回到队列
         log.info("queue_one_receive1: " + new String(message.getBody()));
     }
 
     @RabbitListener(queues = RabbitConstant.QUEUE_ONE)
     public void process1(Message message, Channel channel) throws IOException {
         // 采用手动应答模式, 手动确认应答更为安全稳定
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         log.info("queue_one_receive2: " + new String(message.getBody()));
     }
 
@@ -40,7 +43,7 @@ public class Comsumer {
 
     @RabbitListener(queues = RabbitConstant.QUEUE_TWO)
     public void process7(Message message,String user, Channel channel) throws IOException {
-        // 采用手动应答模式, 手动确认应答更为安全稳定
+        // 采用手动应答模式, 手动确认应答更为安全稳定，true代表已经处理，不再接收
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         /*ObjectMapper mapper=new ObjectMapper();
         String messaged=new String(message.getBody());
@@ -88,5 +91,12 @@ public class Comsumer {
         // 采用手动应答模式, 手动确认应答更为安全稳定
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         log.info("fanoutExchange_FANOUT_C_2: " + new String(message.getBody()));
+    }
+
+    //事物queue
+    @RabbitListener(queues = RabbitConstant.TRAN_QUEUE)
+    public void process66(Message message, Channel channel) throws IOException {
+        log.info("tran_TRAN_QUEUE_1: " + new String(message.getBody()));
+        int cou = 1/0;
     }
 }

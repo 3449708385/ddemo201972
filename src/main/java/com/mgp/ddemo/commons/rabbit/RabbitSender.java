@@ -1,7 +1,7 @@
 package com.mgp.ddemo.commons.rabbit;
 
 import com.mgp.ddemo.user.bean.User;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class RabbitSender {
 
     @Autowired
-    private AmqpTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
 
 
     /*
@@ -32,7 +32,7 @@ public class RabbitSender {
             //往交换机里面塞
             //use Topic Pattern
             this.rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGENEW, RabbitConstant.QUEUE_ONE, context);
-            this.rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGENEW, RabbitConstant.QUEUE_TWO, context);
+            //this.rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGENEW, RabbitConstant.QUEUE_TWO, context);
         }
     }
 

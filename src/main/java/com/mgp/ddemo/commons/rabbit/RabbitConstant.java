@@ -17,4 +17,7 @@ public class RabbitConstant {
 
     final static String FANOUT_EXCHANGE = "FANOUT_EXCHANGE";
 
+    final static String TRAN_QUEUE = "TRAN_QUEUE";
+    final static String TRAN_EXCHANGE = "TRAN_EXCHANGE";
+
 }

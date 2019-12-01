@@ -94,7 +94,7 @@ spring:
     port: 5672
     username: guest
     password: guest
-    publisher-confirms: true   #消息发送到交换机确认机制，是否确认回调
+    publisher-confirms: true   #消息发送到交换机确认机制，是否确认回调,为了测试事物，设置为false
     virtual-host: /
     publisher-returns: true   #消息发送到交换机确认机制，是否返回回调
     listener:
@@ -104,6 +104,7 @@ spring:
         max-concurrency: 10   #最大消费者数量
         retry:
           enabled: true  #是否支持重试
+          #initial-interval: 1000ms
 management:
   health:
     rabbit:
