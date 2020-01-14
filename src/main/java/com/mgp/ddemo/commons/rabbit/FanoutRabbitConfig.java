@@ -32,6 +32,7 @@ public class FanoutRabbitConfig {
 
     @Bean
     Binding bindingExchangeA(Queue AMessage, FanoutExchange fanoutExchange) {
+        //不用指定routekey
         return BindingBuilder.bind(AMessage).to(fanoutExchange);
     }
 

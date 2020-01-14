@@ -25,7 +25,7 @@ public class RabbitSender {
         for(int i=0;i<10;i++){
            String context = "hi, i am send00  "+i;
            System.out.println("Sender : " + context);
-           //往单个queue里面塞，多个监听进行接收
+           //往默认交换机里面塞，默认的交换机绑定所有queue，多个监听进行接收
             //use Direct Pattern.  RabbitMQ default, no need exchange.
            //this.rabbitTemplate.convertAndSend(RabbitConstant.QUEUE_ONE, context);
 
@@ -36,6 +36,7 @@ public class RabbitSender {
         }
     }
 
+    //会报null
     public void send01() {
         for(int i=0;i<10;i++){
             String context = "hi, i am send01  "+i;

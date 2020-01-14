@@ -20,6 +20,7 @@ public class QueueTranConfig {
         return new DirectExchange(exchange,true,false);
     }
 
+    //queue 构造参数，1 队列名称 2 持久化 3 独占队列（该队列将仅由声明者使用连接） 4 自动删除 5 map 拓展参数
     @Bean
     public Queue ingateQueue() {
         return new Queue(ingateQueue,true,false, false);

@@ -133,12 +133,13 @@ public class UserController {
         Map<String, Object> map = new HashMap<String, Object>();
         //mqProducer.send();
         //rabbitSender.send03();
-        //rabbitSender.send01();
+        rabbitSender.send01();
          // rabbitSender.send03();
          // rabbitSender.send2();
         //new 对象，对象里面包含的对象不能用spring注入，不然null
         //new TranRabbitSender().sendIngateQueue("test_pay");
-        tranRabbitSender.sendIngateQueue("test_pay");
+        //报错一直发
+       // tranRabbitSender.sendIngateQueue("test_pay");
         return map;
     }
 
@@ -149,9 +150,15 @@ public class UserController {
         userInfo.setUserId(2L);
         userInfo.setToken("token");
         String token = JwtUtils.encode(userInfo, 5L * 3600L * 1000L);
-        redisUtil.set(token,userInfo);
-        map.put("token",token);
-        return map;
+        if(token==null){
+            map.put("token","");
+            map.put("fail","fail");
+            return map;
+        }else{
+            redisUtil.set(token,userInfo);
+            map.put("token",token);
+            return map;
+        }
     }
 
     @NeedLogin

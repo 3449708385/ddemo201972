@@ -30,7 +30,9 @@ public class TopRabbitConfigFinal {
 
     @Bean
     Binding bindingExchangeMessagenew(Queue topicOne, TopicExchange topicExchangenew) {
-        return BindingBuilder.bind(topicOne).to(topicExchangenew).with(RabbitConstant.QUEUE_ONE);
+        //return BindingBuilder.bind(topicOne).to(topicExchangenew).with(RabbitConstant.QUEUE_ONE);
+        //_最好换.   可以使用通配符
+        return BindingBuilder.bind(topicOne).to(topicExchangenew).with("QUEUE_#");
     }
 
     @Bean

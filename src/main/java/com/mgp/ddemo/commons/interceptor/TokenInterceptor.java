@@ -50,6 +50,21 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                     ThreadLocalUtil.setThreadLocalUserInfo(threadUserInfo);*/
                     //jwt版的实现token 的方式
                     ThreadUserInfo threadUserInfo = JwtUtils.decode(token,ThreadUserInfo.class);
+                    if(threadUserInfo==null){
+                        //抛异常，或直接返回
+                        response.setStatus(RequestStatus.LOGIN_TOKEN.getCode());
+                        response.setCharacterEncoding("UTF-8");
+                        response.setContentType("application/json; charset=utf-8");
+                        JSONObject res = new JSONObject();
+                        res.put("status",RequestStatus.LOGIN_FAIL.getCode());
+                        res.put("msg",RequestStatus.LOGIN_FAIL.getMsg());
+                        PrintWriter out = null ;
+                        out = response.getWriter();
+                        out.write(res.toString());
+                        out.flush();
+                        out.close();
+                        return false;
+                    }
                     ThreadLocalUtil.setThreadLocalUserInfo(threadUserInfo);
                     return true;
                 }else{

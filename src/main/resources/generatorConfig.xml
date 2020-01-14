@@ -81,5 +81,10 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">&lt;!&ndash;在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法&ndash;&gt;
         </table>-->
+        <table tableName="lcn_test" domainObjectName="LcnTest"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+        </table>
     </context>
 </generatorConfiguration>

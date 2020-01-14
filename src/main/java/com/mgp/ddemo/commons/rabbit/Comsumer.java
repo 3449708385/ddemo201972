@@ -97,6 +97,6 @@ public class Comsumer {
     @RabbitListener(queues = RabbitConstant.TRAN_QUEUE)
     public void process66(Message message, Channel channel) throws IOException {
         log.info("tran_TRAN_QUEUE_1: " + new String(message.getBody()));
-        int cou = 1/0;
+       // int cou = 1/0;
     }
 }
