@@ -170,5 +170,7 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 logging:
   level:
-     com.mgp.ddemo.*.mapper : debug
+    root: debug
+    com.mgp.ddemo.*.mapper : debug
+  config: classpath:logback-spring.xml
 

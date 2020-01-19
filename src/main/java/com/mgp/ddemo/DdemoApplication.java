@@ -36,6 +36,7 @@ public class DdemoApplication extends SpringBootServletInitializer implements Co
 	private int port;
 
 	public static void main(String[] args) {
+		System.out.println("project start");
 		SpringApplication.run(DdemoApplication.class, args);
 	}
 

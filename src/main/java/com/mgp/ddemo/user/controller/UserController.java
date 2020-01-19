@@ -11,10 +11,13 @@ import com.mgp.ddemo.commons.threadbind.ThreadLocalUtil;
 import com.mgp.ddemo.commons.threadbind.ThreadUserInfo;
 import com.mgp.ddemo.commons.token.JwtUtils;
 import com.mgp.ddemo.commons.util.MyPageHelper;
+import com.mgp.ddemo.commons.util.ReturnInfo;
 import com.mgp.ddemo.user.bean.Jiepai;
 import com.mgp.ddemo.user.bean.User;
 import com.mgp.ddemo.user.service.JiepaiService;
 import com.mgp.ddemo.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -51,6 +54,9 @@ public class UserController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/getUser")
     public Map<String, Object> getUser(){
@@ -384,6 +390,17 @@ public class UserController {
 
         //this.redisTemplate.opsForHash().keys();
 
+    }
+
+
+    @RequestMapping(value="/echoLogFile", produces="application/json")
+    public ReturnInfo echoLogFile(){
+
+        for(int i=0;i<100;i++){
+            logger.info("echoLogFile: "+i);
+        }
+
+        return ReturnInfo.ok();
     }
 
 }
